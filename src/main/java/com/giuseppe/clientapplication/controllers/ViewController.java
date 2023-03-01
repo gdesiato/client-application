@@ -6,16 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Controller
+@RestController
 public class ViewController {
 
     @Autowired
@@ -58,10 +55,10 @@ public class ViewController {
     // we use RestTemplate to connect the UserMicroservice
     @GetMapping("/users")
     public List<Object> getUser() {
-        ResponseEntity<Object[]> response = restTemplate.getForEntity("http://USER-MICROSERVICE/user", Object[].class);
+        ResponseEntity<Object[]> response = restTemplate.getForEntity("http://USER-MICROSERVICE/user/users", Object[].class);
         System.out.println(response);
 
-        Object[] users = restTemplate.getForObject("http://USER-MICROSERVICE/user", Object[].class);
+        Object[] users = restTemplate.getForObject("http://USER-MICROSERVICE/user/users", Object[].class);
         return Arrays.asList(users);
     }
 
